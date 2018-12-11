@@ -100,8 +100,6 @@ df_pivoted = df_pivoted.reset_index()
 df_pivoted.to_csv("Scraped-Data/df_pivoted.csv")
 x = df_pivoted[cols]
 y = df_pivoted['Source']
-# print(x)
-# print(y)
 
 # # Trying out our classifier to learn diseases from the symptoms
 import seaborn as sns
@@ -117,6 +115,7 @@ print(mnb.score(x_test, y_test))
 
 
 
+# x
 ################# # # Inferences on train and test split# # ################
 mnb_tot = MultinomialNB()
 mnb_tot = mnb_tot.fit(x, y)
@@ -130,6 +129,7 @@ for i in range(0, len(disease_real)):
         print ('Pred: {0} Actual:{1}'.format(disease_pred[i], disease_real[i]))
     else:
         print ("xxxxxxxxxxxxxx",'Pred: {0} Actual:{1}'.format(disease_pred[i], disease_real[i]))
+
 
 
 
@@ -156,7 +156,6 @@ x = df[cols]
 y = df['prognosis']
 
 
-
 ####################### # # # Training a decision tree# # # #######################
 from sklearn.tree import DecisionTreeClassifier
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
@@ -176,7 +175,7 @@ indices = np.argsort(importances)[::-1]
 # # Print the feature ranking
 print("Feature ranking:")
 features = cols
-for f in range(132):
+for f in range(10):
     print("%d. feature %d - %s (%f)" % (f + 1, indices[f], features[indices[f]] ,importances[indices[f]]))
 
 feature_dict = {}
@@ -185,29 +184,15 @@ for i,f in enumerate(features):
 
 print(features)
 
-s1 = feature_dict['itching']
-s2 = feature_dict['joint_pain']
-# s3 = feature_dict['stomach_pain']
+m = [0 for i in range(132)]
+m = np.matrix(m)
+for sym in range(4):
 
-sample_a = [1 if i == int(s1) else 0 for i in range(len(features))]
-# sample_b = [i/int(s2) if i == int(s2) else i*0 for i in range(len(features))]
-#or
-sample_b = []
-for i in range(len(features)):
-    if i == int(s2):
-       sample_b.append(1)
-    else:
-        sample_b.append(0)
+    ans = input("input sympt from above values ONLY >>> ")
+    a = feature_dict[ans]
 
-
-a = np.matrix(sample_a)
-b = np.matrix(sample_b)
-bb = a + b
-print(len(a),len(b),len(bb))
-sample_b = np.array(sample_b).reshape(1,len(sample_b))
-sample_a = np.array(sample_a).reshape(1,len(sample_a))
-
-print(bb)
-
-print(dt.predict(bb))
-# print(dt.predict_proba(bb))
+    a = [1 if i == int(a) else 0 for i in range(len(features))]
+    a = np.matrix(np.array(a).reshape(1,len(a)))
+    m = m + a
+print(m)
+print(dt.predict(m))
