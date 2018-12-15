@@ -1,33 +1,40 @@
 from flask import Flask,request,jsonify
+from flask_cors import CORS
 import pandas as pd
 import csv
 from collections import defaultdict
 app = Flask(__name__)
-
+CORS(app)
 @app.route('/full/', methods=['GET'])
 def getdata2():
     # #print("Rumman")
-    return "Rumman Hassan Khan"
+    return "<p>Rumman Hasan Khan. <br> Disease Drug Reaction</p>"
 
-@app.route('/postData3',methods=['POST'])
-def getdata():
-    request_data = request.get_json()
-    #print()
+# @app.route('/postData3',methods=['POST'])
+# def getdata():
+#     request_data = request.get_json()
+#     #print()
+#     name = request_data['data']
+#     print("print name " + str(name))
+#     return str(name['name'])
 
-    name = request_data['data']
-    #ab krna done
-    print("print name " + str(name))
-    return str(name['name'])
-#o bhai name same mt rakho
 @app.route('/postData',methods=['POST'])
 def getdatas():
-    request_data = request.get_json()
+    #mil gya data ab cors deni h ;v cors kia? cross origin header
+    request_data = request.get_json() #yahan pe tm json lene ka kare islye kraa h; p 
     # name = request_data["name"]
+    print(request_data)
     name = request_data['data']
     #ab krna done
     print("print name " + str(name))
-    # return str(name['name'])
-
+    #poora form bhejna ho as JSON bhejdena JSON.stringify({ 
+    # "data" : { 
+    #  "name" : elem.Name,
+#    "otherElem" : "thingy"
+    # }})
+    # then tmhara data easily use hojaiga request_data["data"]["name"] aese para hoga set h 
+    ## apne kaam pe lagra ab brb
+    # return name
 
     disease_list = []
     def return_list(disease):
@@ -203,7 +210,7 @@ def getdatas():
         feature_dict[f] = i
     #print(features)
 
-    name = str(name['name'])
+    # name = name
 
     m = [0 for i in range(132)]
     m = np.matrix(m)
