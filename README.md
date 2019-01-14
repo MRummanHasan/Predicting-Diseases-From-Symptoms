@@ -19,3 +19,13 @@ Head over to [Data-Analyis.ipynb](https://github.com/Aniruddha-Tapas/Predicting-
 - [ ] Perform Affinity Analyis to observe which symptoms usually occur together.
 
 <hr>
+
+Libraries required:
+pip install flask
+pip install requests
+pip install flask_cors
+pip install pandas
+pip install numpy
+pip install scikit-learn
+pip install matplotlib
+pip install seaborn
